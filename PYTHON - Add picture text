@@ -1,0 +1,36 @@
+from PIL import Image, ImageDraw, ImageFont
+
+def add_text_to_image(image_path, text, output_path):
+    # Open the image
+    image = Image.open(image_path)
+    
+    # Create a drawing object
+    draw = ImageDraw.Draw(image)
+    
+    # Specify the font style and size
+    font_path = "path/to/font.ttf"  # Replace with the path to your desired font file
+    font_size = 30
+    font = ImageFont.truetype(font_path, font_size)
+    
+    # Specify the text color
+    text_color = (255, 255, 255)  # White color
+    
+    # Calculate the position for the text
+    text_width, text_height = draw.textsize(text, font=font)
+    x = (image.width - text_width) // 2  # Center horizontally
+    y = (image.height - text_height) // 2  # Center vertically
+    
+    # Add the text to the image
+    draw.text((x, y), text, font=font, fill=text_color)
+    
+    # Save the modified image
+    image.save(output_path)
+
+# Example usage:
+image_path = "path/to/image.jpg"  # Replace with the path to your image file
+text = "Hello, World!"
+output_path = "path/to/output.jpg"  # Replace with the desired output path
+
+add_text_to_image(image_path, text, output_path)
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
