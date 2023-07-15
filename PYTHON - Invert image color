@@ -1,0 +1,36 @@
+from PIL import Image
+
+def inverse_colors(image_path, output_path):
+    # Open the image file
+    image = Image.open(image_path)
+
+    # Get the image dimensions
+    width, height = image.size
+
+    # Create a new blank image with the same dimensions
+    inverted_image = Image.new("RGB", (width, height))
+
+    # Inverse the colors pixel by pixel
+    for y in range(height):
+        for x in range(width):
+            # Get the RGB color values of the pixel
+            r, g, b = image.getpixel((x, y))
+
+            # Inverse the colors by subtracting each value from 255
+            inverted_r = 255 - r
+            inverted_g = 255 - g
+            inverted_b = 255 - b
+
+            # Set the inverted color values to the new image
+            inverted_image.putpixel((x, y), (inverted_r, inverted_g, inverted_b))
+
+    # Save the inverted image
+    inverted_image.save(output_path)
+    print("Image colors inverted and saved as", output_path)
+
+# Example usage
+image_path = "path/to/input/image.jpg"
+output_path = "path/to/output/inverted_image.jpg"
+inverse_colors(image_path, output_path)
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
