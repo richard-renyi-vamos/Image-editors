@@ -1,0 +1,35 @@
+import barcode
+from barcode import EAN13
+from barcode.writer import ImageWriter
+
+def generate_barcode(number, filename):
+    try:
+        # Generate the barcode
+        ean = EAN13(number, writer=ImageWriter(), add_checksum=False)
+
+        # Save the barcode as an image
+        ean.save(filename)
+
+        print(f"Barcode generated and saved as '{filename}'")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    try:
+        # Input the 12-digit number (EAN-13 format requires 12 digits)
+        barcode_number = input("Enter the 12-digit number for the barcode: ")
+
+        if len(barcode_number) != 12 or not barcode_number.isdigit():
+            raise ValueError("Invalid barcode number. It should be a 12-digit number.")
+
+        filename = input("Enter the filename to save the barcode (e.g., barcode.png): ")
+
+        generate_barcode(barcode_number, filename)
+    except ValueError as ve:
+        print(f"ValueError: {ve}")
+    except KeyboardInterrupt:
+        print("\nBarcode generation aborted by the user.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
