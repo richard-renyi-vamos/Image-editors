@@ -1,0 +1,32 @@
+import random
+from PIL import Image, ImageColor
+
+def generate_random_image(width, height):
+    # Create a blank image with the specified width and height
+    img = Image.new('RGB', (width, height), 'white')
+    pixels = img.load()
+
+    # Iterate over each pixel and set a random color
+    for x in range(width):
+        for y in range(height):
+            # Generate a random color as (R, G, B)
+            random_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            pixels[x, y] = random_color
+
+    return img
+
+if __name__ == "__main__":
+    image_width = 400  # Change this to your desired image width
+    image_height = 300  # Change this to your desired image height
+
+    # Generate the random image
+    random_image = generate_random_image(image_width, image_height)
+
+    # Save the image to a file
+    random_image.save("random_image.png")
+
+    # Display the image
+    random_image.show()
+
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
