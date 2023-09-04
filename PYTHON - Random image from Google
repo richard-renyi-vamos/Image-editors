@@ -1,0 +1,32 @@
+import tkinter as tk
+import webbrowser
+import random
+
+class RandomImageApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Random Image Viewer")
+        
+        # Create a button to open a random Google Images search
+        self.open_button = tk.Button(root, text="Open Random Google Images Search", command=self.open_random_google_search)
+        self.open_button.pack(padx=10, pady=10)
+    
+    def open_random_google_search(self):
+        # List of random search terms
+        search_terms = ["cat", "dog", "landscape", "beach", "mountain", "flower"]
+        
+        # Choose a random search term
+        random_search_term = random.choice(search_terms)
+        
+        # Construct the Google Images search URL
+        search_url = f"https://www.google.com/search?q={random_search_term}&tbm=isch"
+        
+        # Open the web browser with the search URL
+        webbrowser.open(search_url)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = RandomImageApp(root)
+    root.mainloop()
+
+# CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
