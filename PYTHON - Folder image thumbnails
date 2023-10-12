@@ -1,0 +1,45 @@
+import os
+import tkinter as tk
+from tkinter import filedialog
+from PIL import Image, ImageTk
+
+def browse_directory():
+    directory_path = filedialog.askdirectory()
+    if directory_path:
+        display_thumbnails(directory_path)
+
+def display_thumbnails(directory_path):
+    for widget in image_frame.winfo_children():
+        widget.destroy()
+
+    file_list = os.listdir(directory_path)
+    image_files = [f for f in file_list if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp'))]
+
+    row, col = 0, 0
+    for img_file in image_files:
+        img_path = os.path.join(directory_path, img_file)
+        img = Image.open(img_path)
+        img.thumbnail((100, 100))
+        img_tk = ImageTk.PhotoImage(img)
+
+        label = tk.Label(image_frame, image=img_tk)
+        label.image = img_tk
+        label.grid(row=row, column=col, padx=5, pady=5)
+        
+        col += 1
+        if col > 3:  # Display 4 images per row, you can change this number
+            col = 0
+            row += 1
+
+app = tk.Tk()
+app.title("Image Browser")
+
+browse_button = tk.Button(app, text="Browse Directory", command=browse_directory)
+browse_button.pack()
+
+image_frame = tk.Frame(app)
+image_frame.pack()
+
+app.mainloop()
+
+ # CREATED WITH THE HELP OF OPEN-AI CHAT GPT: https://chat.openai.com/chat
