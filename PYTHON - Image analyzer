@@ -1,0 +1,41 @@
+import os
+from PIL import Image, ImageTk
+import tkinter as tk
+from tkinter import filedialog
+
+def analyze_image():
+    # Open the selected image
+    file_path = filedialog.askopenfilename()
+    if file_path:
+        img = Image.open(file_path)
+
+        # Get image size
+        img_size = img.size
+
+        # Get image date (last modification time)
+        img_date = os.path.getmtime(file_path)
+
+        # Get RGB values
+        img_data = list(img.getdata())
+
+        # Display information in the GUI
+        info_label.config(text=f"Image Size: {img_size}\nImage Date: {img_date}")
+        rgb_label.config(text="RGB Values:\n" + "\n".join(str(rgb) for rgb in img_data))
+
+# Create a GUI window
+root = tk.Tk()
+root.title("Image Analyzer")
+
+# Create and configure labels
+info_label = tk.Label(root, text="", wraplength=200)
+info_label.pack()
+
+rgb_label = tk.Label(root, text="", wraplength=200)
+rgb_label.pack()
+
+# Create an "Analyze Image" button
+analyze_button = tk.Button(root, text="Analyze Image", command=analyze_image)
+analyze_button.pack()
+
+# Start the GUI main loop
+root.mainloop()
